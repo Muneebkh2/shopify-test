@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'manual_migrations' => (bool) env('SHOPIFY_MANUAL_MIGRATIONS', false),
+    'manual_migrations' => (bool) env('SHOPIFY_MANUAL_MIGRATIONS', true),
 
     /*
     |--------------------------------------------------------------------------
