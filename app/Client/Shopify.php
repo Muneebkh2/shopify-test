@@ -2,6 +2,9 @@
 
 class Shopify {
     public function saveCustomer($customerDataPayload) {
+        $accessToken = config('shopify.api.access_token');
+        $storeUrl = config('shopify.store_url');
+        
         $formattedData = ["customer" => [
             "first_name" => $customerDataPayload['first_name'],
             "last_name" => $customerDataPayload['last_name'],
