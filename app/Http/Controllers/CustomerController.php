@@ -41,26 +41,23 @@ class CustomerController extends Controller
 
         $rawRequestData = json_decode($request->get('rawRequest'), true);
         Log::debug('rawRequestData Array:', [$rawRequestData]);
-
-
-
-        
         
         $dataPayLoad = [
             "first_name" => $rawRequestData['q3_name']['first'],
             "last_name" => $rawRequestData['q3_name']['last'],
-            "company" => $rawRequestData['q5_company'],
+            "company" => $rawRequestData['q8_company'],
             "email" => $rawRequestData['q4_email'],
-            "phone_number" => $rawRequestData['q7_phoneNumber']['full'],
-            "street_address" => $rawRequestData['q8_address']['addr_line1'],
-            "street_address_2" => $rawRequestData['q8_address']['addr_line2'],
-            "city" => $rawRequestData['q8_address']['city'],
-            "state" => $rawRequestData['q8_address']['state'],
-            "zip_code" => $rawRequestData['q8_address']['postal']
+            "phone_number" => $rawRequestData['q6_phoneNumber']['full'],
+            "street_address" => $rawRequestData['q5_address']['addr_line1'],
+            "street_address_2" => $rawRequestData['q5_address']['addr_line2'],
+            "city" => $rawRequestData['q5_address']['city'],
+            "state" => $rawRequestData['q5_address']['state'],
+            "zip_code" => $rawRequestData['q5_address']['postal'],
+            "country" => $rawRequestData['q9_country']
         ];
         Log::debug('DataPayLoad: Array:', [$dataPayLoad]);
 
-        // Customer::create($dataPayLoad);
+        Customer::create($dataPayLoad);
 
         // $this->shopifyClient->saveCustomer($dataPayLoad);
 
