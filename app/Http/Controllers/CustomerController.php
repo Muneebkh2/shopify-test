@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Client\Shopify;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
+    private $shopifyClient;
+    
+    public function __construct(Shopify $shopifyClient)
+    {
+        $this->shopifyClient = $shopifyClient;
+    }
+    
     /**
      * Display a index view with data.
      *
@@ -69,7 +77,7 @@ class CustomerController extends Controller
 
         Customer::create($dataPayLoad);
 
-        // $this->shopifyClient->saveCustomer($dataPayLoad);
+        $this->shopifyClient->saveCustomer($dataPayLoad);
 
         return response()->json([
             'Data' => [

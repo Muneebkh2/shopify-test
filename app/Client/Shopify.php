@@ -1,5 +1,10 @@
 <?php
 
+namespace App\Client;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
 class Shopify {
     public function saveCustomer($customerDataPayload) {
         $accessToken = config('shopify.api.access_token');
@@ -21,8 +26,14 @@ class Shopify {
                 "first_name" => $customerDataPayload['first_name'],
                 "country" => isset($customerDataPayload['country']) ?? ''
             ]
-        ]]; 
+        ]];
 
-        return $formattedData;
+        Log::debug("Format Data Array: ", $formattedData);
+        $response = Http::withHeaders([
+            'X-Shopify-Access-Token' => $accessToken
+        ])->post("https://".$storeUrl."/admin/api/2022-07/customers.json", $formattedData);
+
+        Log::info("Successfully pushed customer to the store.", [$response->json()]);
+
     }
 }
