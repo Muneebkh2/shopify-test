@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  php-fpm:
+    restart: unless-stopped
+    build:
+      context: .
+      target: rlt_php
+    volumes:
+      - .:/var/www/application
+    ports:
+      - "9004:9000"
+    networks:
+      - rlt
+
+  nginx:
+    build:
+      context: .
+      target: rlt_nginx
+    ports:
+      - "84:80"
+    hostname: products.local
+    networks:
+      - rlt
+
+  mysql:
+    image: mariadb:10.6
+    container_name: rlt_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3310:3306
+    environment:
+      MYSQL_DATABASE: rlt_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: dbpassword
+      MYSQL_ROOT_PASSWORD: dbpassword
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - rlt
+
+networks:
+  rlt:
+    driver: bridge
