@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['verify.shopify'])->name('home');
+Route::middleware(['verify.shopify'])->group(function () {
+    Route::get('/', 'App\Http\Controllers\CustomersController@appDashboard')->name('home');
+});
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->middleware(['verify.shopify'])->name('home');

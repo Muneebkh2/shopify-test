@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Log;
 class CustomerController extends Controller
 {
     /**
+     * Display a index view with data.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function appDashboard() {
+        $allCustomers = $this->index();
+        return view('welcome', compact('allCustomers'));
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
